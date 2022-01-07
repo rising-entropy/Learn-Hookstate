@@ -1,25 +1,25 @@
 import React from 'react'
-import useGlobalState from '../store/globalStates'
+import useGlobalState from '../store/globalStates';
+import Task from './Task';
 
 export default function AllTasks() {
 
-    const states = useGlobalState();
+    const state = useGlobalState();
+    let theTasks = state.getAllTasks();
 
-    // console.log(states.getAllTasks())
-    console.log(states.addNewTask("Hello", "There"))
-    console.log(states.addNewTask("Hey", "There"))
+    const allTheTasks = []
 
-    console.log(states.updateTaskName(1, "General"));
-    console.log(states.updateTaskStatus(1, "Kenobi"))
-    // console.log(states.getAllTasks())
-    console.log(states.deleteTask(1))
-    
-    console.log(states.getAllTasks())
+    for(let i=0; i<theTasks.length; i++)
+    {
+        allTheTasks.push(<Task key={i} task={theTasks[i]} />);
+    }
 
 
     return (
-        <div>
-            
+        <div className='row'>
+            <div className="container container-fluid">
+                {allTheTasks.map(e => e)}
+            </div>
         </div>
     )
 }
