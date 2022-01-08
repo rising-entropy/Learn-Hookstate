@@ -4,22 +4,25 @@ import useGlobalState from '../store/globalStates';
 
 export default function Task(props) {
 
-    const state = useGlobalState()
+    const state = useGlobalState();
 
     const [task, setTask] = useState("");
     const [status, setStatus] = useState("");
 
     const statusChangeHandler = (e) => {
-        console.log(e.target.value)
         setStatus(e.target.value);
         document.getElementById(`status${props.task.id}`).value = e.target.value
-        state.updateTaskStatus(e.target.value)
+        state.updateTaskStatus(props.task.id, e.target.value)
     }
 
     const taskChangeHandler = (e) => {
         setTask(e.target.value);
         document.getElementById(`task${props.task.id}`).value = e.target.value
-        state.updateTaskName(e.target.value)
+        state.updateTaskName(props.task.id, e.target.value)
+    }
+
+    const deleteTaskHandler = () => {
+        state.deleteTask(props.task.id)
     }
 
     let theBorderColor;
@@ -47,9 +50,8 @@ export default function Task(props) {
                     <option value="Complete">Complete</option>
                 </select>
                 &nbsp;&nbsp;&nbsp;
-                <button className='btn btn-danger'>Delete</button>
+                <button className='btn btn-danger' onClick={deleteTaskHandler} >Delete</button>
             </div>
-            
         </div>
     )
 }

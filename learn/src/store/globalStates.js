@@ -50,6 +50,15 @@ const useGlobalState = () => {
             state.tasks[i].set(none);
         }
     }
+  },
+  getSpecificTask: (id) => {
+    for(let i=0; i<state.value.tasks.length; i++)
+    {
+        if(state.value.tasks[i].id === id)
+        {
+           return state.tasks[i].get();
+        }
+    }
   }
 });
 }
